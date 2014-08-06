@@ -292,34 +292,6 @@ static struct mmci_platform_data mop500_sdi3_data = {
 
 #endif
 
-/*
- * SDI 4 (on-board eMMC)
- */
-
-#ifdef CONFIG_STE_DMA40
-struct stedma40_chan_cfg mop500_sdi4_dma_cfg_rx = {
-	.mode = STEDMA40_MODE_LOGICAL,
-	.dir = STEDMA40_PERIPH_TO_MEM,
-	.src_dev_type =  DB8500_DMA_DEV42_SD_MM4_RX,
-	.dst_dev_type = STEDMA40_DEV_DST_MEMORY,
-	.src_info.data_width = STEDMA40_WORD_WIDTH,
-	.dst_info.data_width = STEDMA40_WORD_WIDTH,
-	.use_fixed_channel = true,
-	.phy_channel = 5,
-};
-
-static struct stedma40_chan_cfg mop500_sdi4_dma_cfg_tx = {
-	.mode = STEDMA40_MODE_LOGICAL,
-	.dir = STEDMA40_MEM_TO_PERIPH,
-	.src_dev_type = STEDMA40_DEV_SRC_MEMORY,
-	.dst_dev_type = DB8500_DMA_DEV42_SD_MM4_TX,
-	.src_info.data_width = STEDMA40_WORD_WIDTH,
-	.dst_info.data_width = STEDMA40_WORD_WIDTH,
-	.use_fixed_channel = true,
-	.phy_channel = 5,
-};
-#endif
-
 static struct mmci_platform_data mop500_sdi4_data = {
 	.f_max		= 50000000,
 	.capabilities	= MMC_CAP_4_BIT_DATA |
