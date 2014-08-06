@@ -75,9 +75,6 @@
 #include <mach/devices.h>
 #include <mach/irqs.h>
 #include <mach/ste-dma40-db8500.h>
-#ifdef CONFIG_U8500_SIM_DETECT
-#include <mach/sim_detect.h>
-#endif
 #include <linux/platform_data/crypto-ux500.h>
 #include <mach/pm.h>
 
@@ -2085,19 +2082,6 @@ static struct hsi_board_info __initdata u8500_hsi_devices[] = {
 };
 #endif
 
-#ifdef CONFIG_U8500_SIM_DETECT
-static struct sim_detect_platform_data sim_detect_pdata = {
-	.irq_num		= MOP500_AB8500_VIR_GPIO_IRQ(6),
-};
-struct platform_device u8500_sim_detect_device = {
-	.name	= "sim-detect",
-	.id	= 0,
-	.dev	= {
-			.platform_data          = &sim_detect_pdata,
-	},
-};
-#endif
-
 static struct cryp_platform_data u8500_cryp1_platform_data = {
 	.mem_to_engine = {
 		.dir = STEDMA40_MEM_TO_PERIPH,
@@ -2139,9 +2123,6 @@ static struct hash_platform_data u8500_hash1_platform_data = {
 
 /* add any platform devices here - TODO */
 static struct platform_device *mop500_platform_devs[] __initdata = {
-#ifdef CONFIG_U8500_SIM_DETECT
-	&u8500_sim_detect_device,
-#endif
 	&u8500_shrm_device,
 	&ste_ff_vibra_device,
 #ifdef CONFIG_U8500_MMIO
