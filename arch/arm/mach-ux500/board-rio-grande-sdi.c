@@ -303,9 +303,4 @@ static struct mmci_platform_data mop500_sdi4_data = {
 				MMC_CAP_MMC_HIGHSPEED,
 	.gpio_cd	= -1,
 	.gpio_wp	= -1,
-#ifdef CONFIG_STE_DMA40
-	.dma_filter	= stedma40_filter,
-	.dma_rx_param	= &mop500_sdi4_dma_cfg_rx,
-	.dma_tx_param	= &mop500_sdi4_dma_cfg_tx,
-#endif
 };
