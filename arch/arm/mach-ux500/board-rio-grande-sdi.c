@@ -292,6 +292,10 @@ static struct mmci_platform_data mop500_sdi3_data = {
 
 #endif
 
+/*
+ * SDI 4 (on-board eMMC)
+ */
+
 static struct mmci_platform_data mop500_sdi4_data = {
 	.f_max		= 50000000,
 	.capabilities	= MMC_CAP_4_BIT_DATA |
