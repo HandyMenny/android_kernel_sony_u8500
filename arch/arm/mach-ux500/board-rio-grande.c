@@ -340,16 +340,6 @@ static struct resource ab8500_resources[] = {
 	}
 };
 
-struct platform_device ab8500_device = {
-	.name = "ab8500-i2c",
-	.id = 0,
-	.dev = {
-		.platform_data = &ab8500_platdata,
-	},
-	.num_resources = 1,
-	.resource = ab8500_resources,
-};
-
 #ifdef CONFIG_AV8100
 static int av8100_plat_init(void)
 {
@@ -2398,7 +2388,6 @@ static void __init mop500_init_machine(void)
 #ifdef CONFIG_ANDROID_STE_TIMED_VIBRA
 	mop500_vibra_init();
 #endif
-	platform_device_register(&ab8500_device);
 
 	i2c_register_board_info(0, ARRAY_AND_SIZE(pdp_i2c0_devices));
 	i2c_register_board_info(2, ARRAY_AND_SIZE(pdp_i2c2_devices));
