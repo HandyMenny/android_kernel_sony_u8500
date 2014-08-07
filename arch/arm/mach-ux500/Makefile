@@ -28,94 +28,95 @@ obj-$(CONFIG_MACH_U8500)	+= board-mop500.o \
 				board-mop500-mmio.o \
 				board-mop500-wlan.o \
 				board-mop500-cyttsp.o \
-				board-mop500-vibra.o
+				board-mop500-vibra.o \
+				board-pins-sleep-force.o
 
 obj-$(CONFIG_MACH_U8500_KUMQUAT)  += board-rio-grande.o \
-                board-rio-grande-sdi.o \
+		                board-rio-grande-sdi.o \
 				board-mop500-regulators.o \
 				gpio-kumquat.o \
 				board-mop500-msp.o \
-                board-mop500-bm.o \
+                		board-mop500-bm.o \
 				board-rio-grande-mmio.o \
-                board-mop500-wlan.o \
+		                board-mop500-wlan.o \
 				simple_remote-rio-grande.o \
 				input-kumquat.o \
-                leds-kumquat.o \
+		                leds-kumquat.o \
 				display-rio-grande.o \
-                sim_detect_semc.o \
+		                sim_detect_semc.o \
 				charger-kumquat.o \
 				board-mop500-vibra.o
 
 obj-$(CONFIG_MACH_U8500_LOTUS)  += board-rio-grande.o \
-                board-rio-grande-sdi.o \
+		                board-rio-grande-sdi.o \
 				board-mop500-regulators.o \
 				gpio-lotus.o \
 				board-mop500-msp.o \
-                board-mop500-bm.o \
+		                board-mop500-bm.o \
 				board-rio-grande-mmio.o \
-                board-mop500-wlan.o \
+		                board-mop500-wlan.o \
 				simple_remote-rio-grande.o \
 				input-lotus.o \
-                leds-lotus.o \
+		                leds-lotus.o \
 				display-rio-grande_r2.o \
-                sim_detect_semc.o \
+		                sim_detect_semc.o \
 				charger-lotus.o \
 				board-mop500-vibra.o
 
 obj-$(CONFIG_MACH_U8500_NYPON)  += board-rio-grande.o \
-                board-rio-grande-sdi.o \
+		                board-rio-grande-sdi.o \
 				board-mop500-regulators.o \
 				gpio-nypon.o \
 				board-mop500-msp.o \
-                board-mop500-bm.o \
+                		board-mop500-bm.o \
 				board-rio-grande-mmio.o \
-                board-mop500-wlan.o \
+		                board-mop500-wlan.o \
 				simple_remote-rio-grande_r2.o \
 				input-nypon.o \
-                leds-nypon.o \
+		                leds-nypon.o \
 				display-nypon.o \
-                sim_detect_semc.o \
+		                sim_detect_semc.o \
 				charger-nypon.o \
 				board-mop500-vibra-nypon.o
 
 obj-$(CONFIG_MACH_U8500_PDP)  += board-rio-grande.o \
-                board-rio-grande-sdi.o \
+                		board-rio-grande-sdi.o \
 				board-mop500-regulators.o \
-                charger-rio-grande.o \
+		                charger-rio-grande.o \
 				gpio-pdp.o \
 				board-mop500-msp.o \
-                 board-mop500-bm.o \
+                 		board-mop500-bm.o \
 				board-mop500-wlan.o \
 				board-mop500-vibra.o
 
 obj-$(CONFIG_MACH_U8500_PDP_R2)  += board-rio-grande.o \
-                board-rio-grande-sdi.o \
+		                board-rio-grande-sdi.o \
 				board-mop500-regulators.o \
-                charger-rio-grande.o \
+                		charger-rio-grande.o \
 				gpio-pdp_r2.o \
 				board-mop500-msp.o \
-                board-mop500-bm.o \
+                		board-mop500-bm.o \
 				board-rio-grande-mmio.o \
-                board-mop500-wlan.o \
+                		board-mop500-wlan.o \
 				simple_remote-rio-grande_r2.o \
 				input-rio-grande-pdp.o \
-                leds-rio-grande-pdp.o \
+                		leds-rio-grande-pdp.o \
 				display-rio-grande_r2.o \
 				board-mop500-vibra.o
 
 obj-$(CONFIG_MACH_U8500_PEPPER)  += board-rio-grande.o \
-                board-rio-grande-sdi.o \
+		                board-rio-grande-sdi.o \
 				board-mop500-regulators.o \
 				gpio-pepper.o \
 				board-mop500-msp.o \
-                board-mop500-bm.o \
+                		board-mop500-bm.o \
 				board-rio-grande-mmio.o \
-                board-mop500-wlan.o \
+                		board-mop500-wlan.o \
 				simple_remote-rio-grande.o \
 				input-pepper.o \
-                leds-pepper.o \
+                		leds-pepper.o \
 				display-rio-grande.o \
-                sim_detect_semc.o \
+                		sim_detect_semc.o \
 				board-mop500-vibra-pepper.o \
 				charger-pepper.o
 
