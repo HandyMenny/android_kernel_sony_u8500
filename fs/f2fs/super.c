@@ -57,7 +57,6 @@ enum {
 	Opt_flush_merge,
 	Opt_nobarrier,
 	Opt_fastboot,
-	Opt_extent_cache,
 	Opt_err,
 };
 
@@ -79,7 +78,6 @@ static match_table_t f2fs_tokens = {
 	{Opt_flush_merge, "flush_merge"},
 	{Opt_nobarrier, "nobarrier"},
 	{Opt_fastboot, "fastboot"},
-	{Opt_extent_cache, "extent_cache"},
 	{Opt_err, NULL},
 };
 
@@ -369,9 +367,6 @@ static int parse_options(struct super_block *sb, char *options)
 		case Opt_fastboot:
 			set_opt(sbi, FASTBOOT);
 			break;
-		case Opt_extent_cache:
-			set_opt(sbi, EXTENT_CACHE);
-			break;
 		default:
 			f2fs_msg(sb, KERN_ERR,
 				"Unrecognized mount option \"%s\" or missing value",
@@ -564,9 +559,9 @@ static int f2fs_statfs(struct dentry *dentry, struct kstatfs *buf)
 	return 0;
 }
 
-static int f2fs_show_options(struct seq_file *seq, struct dentry *root)
+static int f2fs_show_options(struct seq_file *seq, struct vfsmount *vfs)
 {
-	struct f2fs_sb_info *sbi = F2FS_SB(root->d_sb);
+	struct f2fs_sb_info *sbi = F2FS_SB(vfs->mnt_sb);
 
 	if (!f2fs_readonly(sbi->sb) && test_opt(sbi, BG_GC))
 		seq_printf(seq, ",background_gc=%s", "on");
@@ -604,8 +599,6 @@ static int f2fs_show_options(struct seq_file *seq, struct dentry *root)
 		seq_puts(seq, ",nobarrier");
 	if (test_opt(sbi, FASTBOOT))
 		seq_puts(seq, ",fastboot");
-	if (test_opt(sbi, EXTENT_CACHE))
-		seq_puts(seq, ",extent_cache");
 	seq_printf(seq, ",active_logs=%u", sbi->active_logs);
 
 	return 0;
@@ -1010,7 +1003,6 @@ try_onemore:
 		goto free_options;
 
 	sb->s_maxbytes = max_file_size(le32_to_cpu(raw_super->log_blocksize));
-	sb->s_max_links = F2FS_LINK_MAX;
 	get_random_bytes(&sbi->s_next_generation, sizeof(u32));
 
 	sb->s_op = &f2fs_sops;
@@ -1079,8 +1071,6 @@ try_onemore:
 	INIT_LIST_HEAD(&sbi->dir_inode_list);
 	spin_lock_init(&sbi->dir_inode_lock);
 
-	init_extent_cache_info(sbi);
-
 	init_ino_entry_info(sbi);
 
 	/* setup f2fs internal modules */
@@ -1123,7 +1113,7 @@ try_onemore:
 		goto free_node_inode;
 	}
 
-	sb->s_root = d_make_root(root); /* allocate root dentry */
+	sb->s_root = d_alloc_root(root); /* allocate root dentry */
 	if (!sb->s_root) {
 		err = -ENOMEM;
 		goto free_root_inode;
@@ -1199,8 +1189,7 @@ free_proc:
 	}
 	f2fs_destroy_stats(sbi);
 free_root_inode:
-	dput(sb->s_root);
-	sb->s_root = NULL;
+	iput(root);
 free_node_inode:
 	iput(sbi->node_inode);
 free_nm:
@@ -1286,13 +1275,10 @@ static int __init init_f2fs_fs(void)
 	err = create_checkpoint_caches();
 	if (err)
 		goto free_segment_manager_caches;
-	err = create_extent_cache();
-	if (err)
-		goto free_checkpoint_caches;
 	f2fs_kset = kset_create_and_add("f2fs", NULL, fs_kobj);
 	if (!f2fs_kset) {
 		err = -ENOMEM;
-		goto free_extent_cache;
+		goto free_checkpoint_caches;
 	}
 	err = register_filesystem(&f2fs_fs_type);
 	if (err)
@@ -1303,8 +1289,6 @@ static int __init init_f2fs_fs(void)
 
 free_kset:
 	kset_unregister(f2fs_kset);
-free_extent_cache:
-	destroy_extent_cache();
 free_checkpoint_caches:
 	destroy_checkpoint_caches();
 free_segment_manager_caches:
